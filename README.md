@@ -24,10 +24,12 @@ Available options (and default values) :
 
 **`--timeout 150`**
 
-  Timeout after which the command is killed and a HTTP 504 (Gateway Timeout) is sent.
+  Timeout after which the command is killed (SIGTERM) and a HTTP 504 (Gateway Timeout) is sent.
 
 ## Notes
-- If the client disconnects the command is killed
+- The command is executed in a shell in the current directory
+- If the command fails (non-zero exit code) a HTTP 500 (Server Error) is sent.
+- If the client disconnects the command is killed (SIGTERM).
 
 ### License
 MIT

@@ -23,5 +23,9 @@
   "bugs": {
     "url": "https://github.com/guillaumervls/http-trigger/issues"
   },
-  "homepage": "https://github.com/guillaumervls/http-trigger#readme"
+  "homepage": "https://github.com/guillaumervls/http-trigger#readme",
+  "dependencies": {
+    "body": "^5.1.0",
+    "minimist": "^1.1.3"
+  }
 }
