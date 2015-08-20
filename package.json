@@ -1,8 +1,8 @@
 {
   "name": "http-trigger",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Listen to HTTP POST requests to trigger executions of a command",
-  "main": "server.js",
+  "bin": "server.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
