@@ -22,7 +22,10 @@ function endRes(res, statusCode) {
 http.createServer(function (req, res) {
   if (req.url !== '/') return endRes(res, 404);
   if (req.method !== 'POST') return endRes(res, 405);
-  if (activeProcessesCount >= concurrency) return endRes(res, 429);
+  if (activeProcessesCount >= concurrency) {
+    console.error('Concurrency exceeded');
+    return endRes(res, 429);
+  };
 
   readReqBody(req, function (err, body) {
     if (err) return endRes(res, 413);
@@ -33,9 +36,18 @@ http.createServer(function (req, res) {
       timeout: timeout
     }, function (err) {
       activeProcessesCount--;
-      endRes(res, err ? (err.code > 0 ? 500 : 504) : 200);
+      var resCode = err ? 500 : 200;
+      if (err && err.killed) {
+        resCode = 504;
+        console.error('Killed command after ' +
+          (res.closedByClient ? 'client disconnect' : ('timeout of ' + timeout / 1000 + 'sec')));
+      }
+      endRes(res, resCode);
     });
-    res.on('close', cp.kill.bind(cp));
+    res.on('close', function () {
+      res.closedByClient = true;
+      cp.kill();
+    });
     cp.stdout.pipe(process.stdout);
     cp.stderr.pipe(process.stderr);
     cp.stdin.end(body);
