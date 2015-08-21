@@ -1,6 +1,8 @@
 # HTTP Trigger
 _Listen to HTTP POST requests to trigger executions of a command_
 
+Requires [Node.js](https://nodejs.org/)
+
 ## Install
 `npm install (-g) http-trigger`
 
