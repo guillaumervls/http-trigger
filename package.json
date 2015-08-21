@@ -1,6 +1,6 @@
 {
   "name": "http-trigger",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "Listen to HTTP POST requests to trigger executions of a command",
   "bin": "server.js",
   "scripts": {
